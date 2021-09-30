@@ -6,31 +6,35 @@ import React from 'react';
 import { useState, useEffect } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
 import service from '../api/service';
+import { Link } from "react-router-dom";
+import SongDetails from "./SongDetails";
 
 
-function SongsList() {
+function SongsList(props) {
 
-    const [allSongs, setAllSongs] = useState([]);
-    
-    const getAllSongs = () => {
-      return service
-        .findAllSongs()
-        .then(response => {
-          console.log("response is: ", response);
-          setAllSongs(response)
-        })
-        .catch(err => console.log('Error while uploading the file: ', err));  
-    }
+  const [allSongs, setAllSongs] = useState([]);
 
-    useEffect(() => {
-      getAllSongs()
+  const getAllSongs = () => {
+    return service
+      .findAllSongs()
+      .then(response => {
+        console.log("response is: ", response);
+        setAllSongs(response)
+      })
+      .catch(err => console.log('Error while uploading the file: ', err));
+  }
+
+  useEffect(() => {
+    getAllSongs()
   }, [])
 
-  const songsList = allSongs.map(song => <div key={song._id}><h1>{song.title}</h1><a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>Download</a></div>)
-  
+  const songsList = allSongs.map(song => <SongDetails key={song._id} {...song} />)
+
+
+
   return (<>
-  <h1>List of Songs</h1>
-  {songsList}
+    <h1>List of Songs</h1>
+    {songsList}
   </>
   );
 }
