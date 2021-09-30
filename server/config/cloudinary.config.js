@@ -18,7 +18,7 @@ const storage = new CloudinaryStorage({
     resource_type: 'auto',
     use_filename: true,
     unique_filename: false,
-  
+
   }
 });
 
