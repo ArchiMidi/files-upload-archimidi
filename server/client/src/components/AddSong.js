@@ -8,7 +8,7 @@ import service from '../api/service';
 function AddSong() {
  
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
 
   // ******** this method handles just the file upload ********
@@ -36,7 +36,7 @@ function AddSong() {
     e.preventDefault();
 
     service
-      .saveNewSong({ title, description, songUrl })
+      .saveNewSong({ title, author, songUrl })
       .then(res => {
         console.log('added new song: ', res);
         // here you would redirect to some other page
@@ -54,8 +54,8 @@ function AddSong() {
             <input type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} />
           </label>
 
-          <label>Description</label>
-          <textarea type="text" name="description" value={description} onChange={e => setDescription(e.target.value)} />
+          <label>Author</label>
+          <textarea type="text" name="author" value={author} onChange={e => setAuthor(e.target.value)} />
 
           <input type="file" onChange={handleFileUpload} />
 
