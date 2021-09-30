@@ -8,6 +8,13 @@ const errorHandler = err => {
   throw err;
 };
 
+const findAllMidi = () => {
+  return service
+    .get('/songs')
+    .then(res => res.data)
+    .catch(errorHandler);
+}
+
 const handleUpload = file => {
   return service
     .post('/upload', file)
@@ -22,9 +29,11 @@ const saveNewSong = newSong => {
     .catch(errorHandler);
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const data = {
   service,
   handleUpload,
-  saveNewSong
+  saveNewSong,
+  findAllMidi
 };
+
+export default data;

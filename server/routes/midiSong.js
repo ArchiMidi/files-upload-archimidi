@@ -12,7 +12,7 @@ const fileUploader = require('../config/cloudinary.config');
 // GET '/api/movies' => Route to list all available movies
 router.get('/songs', (req, res, next) => {
   MidiSong.find()
-    .then(songsFromDB => res.status(200).json(songFromDB))
+    .then(songsFromDB => res.status(200).json(songsFromDB))
     .catch(err => next(err));
 });
 
