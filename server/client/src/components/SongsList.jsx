@@ -9,8 +9,7 @@ import service from '../api/service';
 
 
 function SongsList() {
-  
- 
+
     const [allMidi, setAllMidi] = useState([]);
     
     const getAllMidi = () => {
@@ -27,8 +26,7 @@ function SongsList() {
       getAllMidi()
   }, [])
 
-  const songsList = allMidi.map(song => <><h1>{song.title}</h1><a href={song.songUrl}>Download</a></>)
-  
+  const songsList = allMidi.map(song => <div key={song._id}><h1>{song.title}</h1><a href={song.songUrl} download={`${song.title}_${song.description}.mid`}>Download</a></div>)
   
   return (<>
   <h1>List of Songs</h1>
