@@ -1,6 +1,6 @@
 // components/AddMovie/index.jsx
 
-import React, { Component } from 'react';
+import React from 'react';
 import { useState } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
 import service from '../api/service';
@@ -10,11 +10,6 @@ function AddSong() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [songUrl, setSongUrl] = useState('');
-
-  // handleChange = e => {
-  //   const { name, value } = e.target;
-  //   this.setState({ [name]: value });
-  // };
 
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
