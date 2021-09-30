@@ -4,9 +4,11 @@ import AddSong from "./components/AddSong";
 import SongsList from "./components/SongsList";
 import * as PATHS from "./utils/paths";
 
+
 function App() {
   return (
     <div className="App">
+    <h1>APP.JS</h1>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add" component={AddSong} />
