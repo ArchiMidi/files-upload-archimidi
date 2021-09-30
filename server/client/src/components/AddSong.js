@@ -1,5 +1,3 @@
-// components/AddMovie/index.jsx
-
 import React from 'react';
 import { useState } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
@@ -59,7 +57,7 @@ function AddSong() {
 
           <input type="file" onChange={handleFileUpload} />
 
-          <button type="submit">Save new movie</button>
+          <button type="submit">Save new song</button>
         </form>
       </div>
     );
