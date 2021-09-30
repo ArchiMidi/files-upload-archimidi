@@ -3,13 +3,13 @@
 const express = require('express');
 const router = express.Router();
 
-// **** require Movie model in order to use it ****
+// **** require Song model in order to use it ****
 const MidiSong = require('../models/MidiSong');
 
 // ********* require fileUploader in order to use it *********
 const fileUploader = require('../config/cloudinary.config');
 
-// GET '/api/movies' => Route to list all available movies
+// GET '/api/songs' => Route to list all available spmgs
 router.get('/songs', (req, res, next) => {
   MidiSong.find()
     .then(songsFromDB => res.status(200).json(songsFromDB))
@@ -30,7 +30,7 @@ router.post('/upload', fileUploader.single('songUrl'), (req, res, next) => {
   res.json({ secure_url: req.file.path });
 });
 
-// POST '/api/movies/create' => for saving a new movie in the database
+// POST '/api/songs/create' => for saving a new songs in the database
 router.post('/songs/create', (req, res, next) => {
   console.log('body: ', req.body); //==> here we can see that all
   // the fields have the same names as the ones in the model so we can simply pass
@@ -38,7 +38,6 @@ router.post('/songs/create', (req, res, next) => {
 
   MidiSong.create(req.body)
     .then(newlyCreatedSongFromDB => {
-      // console.log('Created new movie: ', newlyCreatedMovieFromDB);
       res.status(200).json(newlyCreatedSongFromDB);
     })
     .catch(err => next(err));

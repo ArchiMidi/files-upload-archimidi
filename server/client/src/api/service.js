@@ -8,7 +8,7 @@ const errorHandler = err => {
   throw err;
 };
 
-const findAllMidi = () => {
+const findAllSongs = () => {
   return service
     .get('/songs')
     .then(res => res.data)
@@ -33,7 +33,7 @@ const data = {
   service,
   handleUpload,
   saveNewSong,
-  findAllMidi
+  findAllSongs
 };
 
 export default data;

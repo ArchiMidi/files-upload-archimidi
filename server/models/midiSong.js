@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 const MidiSong = new Schema(
   {
     title: String,
-    description: String,
+    author: String,
     songUrl: String
   },
   {
