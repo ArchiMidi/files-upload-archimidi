@@ -28,6 +28,9 @@ app.use('/', index); // <== already included
 const songRouter = require('./routes/midiSong'); // <== has to be added
 app.use('/api', songRouter); // <== has to be added
 
+const auth = require('./routes/auth');
+app.use('/api/auth', auth)
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

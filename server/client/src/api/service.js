@@ -35,13 +35,25 @@ const saveNewSong = newSong => {
     .then(res => res.data)
     .catch(errorHandler);
 };
+//**********<-----------Authentication Starts here---------->**********/
+
+const signup = (username, password) => {
+  return service.post('/auth/signup', { username, password })
+    .then(response => {
+      return response.data;
+    })
+    .catch(errorHandler)
+}
 
 const data = {
   service,
   handleUpload,
   saveNewSong,
   findAllSongs,
-  getSong
+  getSong,
+  signup
 };
+
+
 
 export default data;

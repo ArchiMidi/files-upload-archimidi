@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
+import service from '../api/service';
+
 
 export default function Signup() {
 
@@ -8,6 +10,12 @@ export default function Signup() {
     const [message, setMessage] = useState('');
 
     const handleSubmit = e => {
+        e.preventDefault()
+        // console.log(username, password)
+        service.signup(username, password)
+            .then(response => {
+                console.log(response)
+            })
 
     }
     return (
