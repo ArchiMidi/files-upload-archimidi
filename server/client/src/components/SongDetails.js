@@ -18,7 +18,6 @@ export default function SongDetails(props) {
             .then(response => {
                 console.log('song is:', response)
                 setSong(response)
-
             })
             .catch(err => console.log(err))
     }
@@ -27,13 +26,16 @@ export default function SongDetails(props) {
         retrieveSong(songId)
     }, [])
 
-    {/* <Link to={`/songs/${song._id}`}><h1>{song.title}</h1></Link>
-<a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>
-Download</a></div>) */}
+
     return (
         <div>
-            <h1>hello</h1>
-            <h1>{song.title}</h1>
+            {song && (
+                <div>
+                    <h1>hello</h1>
+                    <h1>{song.title}</h1>
+                </div>)}
+
         </div>
+
     )
 }
