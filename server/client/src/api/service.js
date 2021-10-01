@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const service = axios.create({
   baseURL: 'http://localhost:5005/api'
 });
@@ -58,6 +59,16 @@ const login = (username, password) => {
     })
 }
 
+const logout = () => {
+  return service.delete('/auth/logout')
+    .then(response => {
+      return response.data;
+    })
+    .catch(err => {
+      return err.response.data;
+    })
+}
+
 
 const data = {
   service,
@@ -66,7 +77,8 @@ const data = {
   findAllSongs,
   getSong,
   signup,
-  login
+  login,
+  logout
 };
 
 

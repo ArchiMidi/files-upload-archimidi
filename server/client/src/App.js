@@ -21,7 +21,7 @@ function App(props) {
   return (
     <div className="App">
       <h1>ArchMidi</h1>
-      <NavBar></NavBar>
+      <NavBar user={user} setUser={setUser}></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add" component={AddSong} />
