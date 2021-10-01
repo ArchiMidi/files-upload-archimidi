@@ -47,13 +47,26 @@ const signup = (username, password) => {
     })
 }
 
+const login = (username, password) => {
+
+  return service.post('/auth/login', { username, password })
+    .then(response => {
+      return response.data
+    })
+    .catch(err => {
+      return err.response.data
+    })
+}
+
+
 const data = {
   service,
   handleUpload,
   saveNewSong,
   findAllSongs,
   getSong,
-  signup
+  signup,
+  login
 };
 
 

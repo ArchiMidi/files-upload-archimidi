@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
+const e = require('express');
 
-
-//sign up
-
+//************<-----------------Signup--------------->****************//
 
 router.post('/signup', (req, res, next) => {
     console.log(req.body)
@@ -41,5 +40,38 @@ router.post('/signup', (req, res, next) => {
             }
         })
 });
+
+//************<-----------------Log in--------------->****************//
+
+router.post('/login', (req, res, next) => {
+
+    //destructure req.body to get username and password
+    const { username, password } = req.body;
+    //then we check the users DB to see if we have a user with the same username
+    User.findOne({ username: username })
+        .then(userFromDB => {
+            if (userFromDB === null) {
+                //we haven't found a user, you have entered the wrong information
+                res.status(400).json({ message: 'Incorrect username or password' })
+            }
+
+            //if we get to this point, the username is correct
+            //we then check the password from the user input against the hash in the database
+            //compareSync returns a bool, true/false
+            if (bcrypt.compareSync(password, userFromDB.password)) {
+                //does it match? if yes all creds are correct and the user ca log in
+                req.session.user = userFromDB;
+                res.status(200).json(userFromDB);
+
+            } else {
+
+                res.status(400).json({ message: 'incorrect username or password' })
+            }
+        })
+})
+
+
+
+
 
 module.exports = router
