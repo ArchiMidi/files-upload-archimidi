@@ -42,7 +42,9 @@ const signup = (username, password) => {
     .then(response => {
       return response.data;
     })
-    .catch(errorHandler)
+    .catch(err => {
+      return err.response.data
+    })
 }
 
 const data = {

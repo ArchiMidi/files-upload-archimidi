@@ -6,10 +6,14 @@ import NavBar from "./components/NavBar";
 import * as PATHS from "./utils/paths";
 import SongDetails from "./components/SongDetails";
 import Signup from "./components/Signup";
+import useState from 'react'
 
 
 function App(props) {
 
+  // const [user, setUser] = useState('')
+
+  // console.log('App.js user is :', user)
 
 
   return (
