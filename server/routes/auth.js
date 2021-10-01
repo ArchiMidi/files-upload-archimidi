@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User.model')
-const bcrypt = require('bcrypt')
+const User = require('../models/User.model');
+const bcrypt = require('bcrypt');
 
 
 //sign up
@@ -34,12 +34,12 @@ router.post('/signup', (req, res, next) => {
                 User.create({ username: username, password: hash })
                     .then(createdUser => {
                         console.log(createdUser)
-                        // req.session.user = createdUser;
+                        req.session.user = createdUser;
                         res.status(200).json(createdUser)
                     })
                     .catch(err => next(err));
             }
         })
-})
+});
 
 module.exports = router
