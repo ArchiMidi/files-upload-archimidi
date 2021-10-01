@@ -19,7 +19,7 @@ router.get('/songs', (req, res, next) => {
 
 //GET single song
 
-router.get('songs/:id', (req, res, next) => {
+router.get('/songs/:id', (req, res, next) => {
   MidiSong.findById(req.params.id)
     .then(song => {
 
