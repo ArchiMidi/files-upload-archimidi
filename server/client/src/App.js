@@ -5,6 +5,7 @@ import SongsList from "./components/SongsList";
 import NavBar from "./components/NavBar";
 import * as PATHS from "./utils/paths";
 import SongDetails from "./components/SongDetails";
+import Signup from "./components/Signup";
 
 
 function App(props) {
@@ -19,6 +20,7 @@ function App(props) {
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add" component={AddSong} />
         <Route exact path='/songs/:id' component={SongDetails} />
+        <Route exact path='/signup' component={Signup} />
       </Switch>
     </div>
   );
