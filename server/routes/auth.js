@@ -10,10 +10,6 @@ const bcrypt = require('bcrypt')
 router.post('/signup', (req, res, next) => {
     console.log(req.body)
 
-    const string = 'hello'
-
-
-
     const { username, password } = req.body
     if (password.length < 4) {
         res.status(400).json({ message: 'Your password should be longer than 4 characters!' })
@@ -38,8 +34,10 @@ router.post('/signup', (req, res, next) => {
                 User.create({ username: username, password: hash })
                     .then(createdUser => {
                         console.log(createdUser)
-
+                        // req.session.user = createdUser;
+                        res.status(200).json(createdUser)
                     })
+                    .catch(err => next(err));
             }
         })
 })

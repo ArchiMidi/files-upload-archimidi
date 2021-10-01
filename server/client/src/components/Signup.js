@@ -3,7 +3,7 @@ import { useState } from 'react';
 import service from '../api/service';
 
 
-export default function Signup() {
+export default function Signup(props) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +15,20 @@ export default function Signup() {
         service.signup(username, password)
             .then(response => {
                 console.log(response)
+                if (response.message) {
+                    setUsername('');
+                    setPassword('');
+                    setMessage(response.message)
+                    console.log(response.message)
+                } else {
+
+                    console.log(username)
+
+
+                }
             })
+            .catch(err => console.log(err))
+
 
     }
     return (
