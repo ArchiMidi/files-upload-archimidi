@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
-const e = require('express');
+
 
 //************<-----------------Signup--------------->****************//
 
@@ -69,6 +69,20 @@ router.post('/login', (req, res, next) => {
             }
         })
 })
+
+
+router.get('/loggedin', (req, res) => {
+
+    console.log("User is", req.session.user)
+    const user = req.session.user
+    res.json(user);
+});
+
+router.delete('/logout', (req, res, next) => {
+    req.session.destroy();
+    res.status(200).json({ message: "Logged out" })
+});
+
 
 
 
