@@ -7,6 +7,7 @@ import * as PATHS from "./utils/paths";
 import SongDetails from "./components/SongDetails";
 import Signup from "./components/Signup";
 import { useState } from 'react'
+import Login from "./components/Login";
 
 
 function App(props) {
@@ -27,6 +28,8 @@ function App(props) {
         <Route exact path='/songs/:id' component={SongDetails} />
         <Route exact path="/signup"
           render={props => <Signup setUser={setUser}{...props} />} />
+        <Route exact path="/login"
+          render={props => <Login setUser={setUser}{...props} />} />
       </Switch>
     </div>
   );
