@@ -23,6 +23,8 @@ export default function Signup(props) {
                 } else {
 
                     console.log(username)
+                    props.setUser(response)
+                    props.history.push('/')
 
 
                 }
