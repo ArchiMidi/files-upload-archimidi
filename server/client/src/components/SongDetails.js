@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import service from '../api/service'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 export default function SongDetails(props) {
 
@@ -12,7 +11,6 @@ export default function SongDetails(props) {
     console.log(props)
 
     const retrieveSong = (id) => {
-
         return service
             .getSong(id)
             .then(response => {
@@ -31,11 +29,10 @@ export default function SongDetails(props) {
         <div>
             {song && (
                 <div>
-                    <h1>hello</h1>
                     <h1>{song.title}</h1>
+                    <h3>{song.author}</h3>
+                    <a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>Download</a>
                 </div>)}
-
         </div>
-
     )
 }

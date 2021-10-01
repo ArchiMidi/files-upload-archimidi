@@ -4,7 +4,7 @@ import AddSong from "./components/AddSong";
 import SongsList from "./components/SongsList";
 import NavBar from "./components/NavBar";
 import * as PATHS from "./utils/paths";
-// import SongDetails from "./components/SongDetails";
+import SongDetails from "./components/SongDetails";
 
 
 function App(props) {
@@ -13,12 +13,12 @@ function App(props) {
 
   return (
     <div className="App">
-    <h1>APP.JS</h1>
-    <NavBar></NavBar>
+      <h1>APP.JS</h1>
+      <NavBar></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add" component={AddSong} />
-        {/* <Route exact path='/songs/:id' component={SongDetails} /> */}
+        <Route exact path='/songs/:id' component={SongDetails} />
       </Switch>
     </div>
   );
