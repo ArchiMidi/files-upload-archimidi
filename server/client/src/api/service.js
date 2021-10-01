@@ -15,6 +15,13 @@ const findAllSongs = () => {
     .catch(errorHandler);
 }
 
+const getSong = (songId) => {
+  return service
+    .get(`/songs/${songId}`)
+    .then(res => res.data)
+    .catch(errorHandler)
+}
+
 const handleUpload = file => {
   return service
     .post('/upload', file)
@@ -33,7 +40,8 @@ const data = {
   service,
   handleUpload,
   saveNewSong,
-  findAllSongs
+  findAllSongs,
+  getSong
 };
 
 export default data;

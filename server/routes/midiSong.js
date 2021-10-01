@@ -8,6 +8,7 @@ const MidiSong = require('../models/MidiSong');
 
 // ********* require fileUploader in order to use it *********
 const fileUploader = require('../config/cloudinary.config');
+const e = require('express');
 
 // GET '/api/songs' => Route to list all available spmgs
 router.get('/songs', (req, res, next) => {
@@ -15,6 +16,24 @@ router.get('/songs', (req, res, next) => {
     .then(songsFromDB => res.status(200).json(songsFromDB))
     .catch(err => next(err));
 });
+
+//GET single song
+
+router.get('songs/:id', (req, res, next) => {
+  MidiSong.findById(req.params.id)
+    .then(song => {
+
+      if (!song) {
+        res.status(404).json(song)
+
+      } else {
+        res.status(200).json(song)
+      }
+    })
+    .catch(err => next(err))
+
+})
+
 
 // POST '/api/upload' => Route that will receive an image, send it to Cloudinary via the fileUploader and return the image URL
 router.post('/upload', fileUploader.single('songUrl'), (req, res, next) => {
