@@ -5,12 +5,11 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import axios from 'axios'
 
-axios.get('/api/auth/loggedin')
+axios.get('http://localhost:5005/api/auth/loggedin')
   .then(response => {
     console.log('logged in user: ', response.data);
     const user = response.data;
     ReactDOM.render(
-
       <BrowserRouter>
         <App user={user} />
       </BrowserRouter>,

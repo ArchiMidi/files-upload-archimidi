@@ -14,23 +14,29 @@ function App(props) {
 
   const [user, setUser] = useState(props.user)
 
-  // console.log('App.js user is :', user)
+  const addUser = user => {
+    setUser(user)
+  }
+
+
+
+  console.log('App.js user is :', user)
 
   console.log(user)
 
   return (
     <div className="App">
       <h1>ArchMidi</h1>
-      <NavBar user={user} setUser={setUser}></NavBar>
+      <NavBar user={user} setUser={addUser}></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add"
-          render={props => <AddSong user={user} setUser={setUser} />} />
+          render={props => <AddSong user={user} setUser={addUser} />} />
         <Route exact path='/songs/:id' component={SongDetails} />
         <Route exact path="/signup"
-          render={props => <Signup setUser={setUser}{...props} />} />
+          render={props => <Signup setUser={addUser}{...props} />} />
         <Route exact path="/login"
-          render={props => <Login setUser={setUser}{...props} />} />
+          render={props => <Login setUser={addUser}{...props} />} />
       </Switch>
     </div>
   );
