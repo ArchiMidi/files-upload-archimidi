@@ -62,4 +62,15 @@ router.post('/songs/create', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.delete('/:id', (req, res) => {
+  MidiSong.findByIdAndDelete(req.params.id)
+      .then(() => {
+        ////
+        fileUploader.destroy(`${req.params.id}`, function(error,result) {
+          console.log(result, error) });
+          res.status(200).json({ message: 'song deleted' });
+      })
+      .catch(err => console.log(err));
+});
+
 module.exports = router;
