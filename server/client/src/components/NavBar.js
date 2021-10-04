@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom"
 import service from '../api/service'
 
 export default function NavBar(props) {
-
-    console.log('logged in user is >>>>>>>>>>>>>>>>>>>>>>>>>>>', props.user)
+    // console.log('logged in user is >>>>>>>>>>>>>>>>>>>>>>>>>>>', props.user)
 
     const handleLogout = () => {
         service.logout()
             .then(() => {
                 props.setUser(null)
             })
-
     }
+
+    console.log(props, '<---------')
+
     return (
         <nav>
             {props.user ? (
@@ -34,11 +35,12 @@ export default function NavBar(props) {
                     <Link to='/signup'>
                         <p>Sign up</p>
                     </Link>
-                    <p>or</p>
+                    {props !== '/login' && <><p>or</p>
                     <Link to='/login'>
                         <p>Log in</p>
                     </Link>
-                    <p>to upload a song </p>
+                    <p>to upload a song </p></>}
+                    
                 </>
             )}
         </nav>
