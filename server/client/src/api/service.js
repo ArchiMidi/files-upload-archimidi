@@ -36,6 +36,13 @@ const saveNewSong = newSong => {
     .then(res => res.data)
     .catch(errorHandler);
 };
+
+const deleteSong = (songId) => {
+  return service
+    .delete(`/${songId}`)
+    .then(res => res.data)
+    .catch(errorHandler)
+}
 //**********<-----------Authentication Starts here---------->**********/
 
 const signup = (username, password) => {
@@ -72,6 +79,7 @@ const logout = () => {
 
 const data = {
   service,
+  deleteSong,
   handleUpload,
   saveNewSong,
   findAllSongs,
