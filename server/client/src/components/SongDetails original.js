@@ -6,34 +6,31 @@ import { useEffect } from 'react'
 export default function SongDetails(props) {
     
     const [song, setSong] = useState(null)
-    const [midiPlayer, setMidiPlayer] = useState({body: null})
-
     const songId = props.match.params.id
     
-    const deleteSong = async (id) => {
-        try {
-            const response = await service
-                .deleteSong(id)
+    const deleteSong = (id) => {
+        return service
+        .deleteSong(id)
+        .then(response => {
             console.log('song deleted:', response)
-        } catch (err) {
-            return console.log(err)
-        }
+            // setSong(response)
+        })
+        .catch(err => console.log(err))
     }
     
-    const retrieveSong = async (id) => {
-        try {
-            const response = await service
-                .getSong(id)
+    const retrieveSong = (id) => {
+        return service
+        .getSong(id)
+        .then(response => {
             console.log('song is:', response)
             setSong(response)
-        } catch (err) {
-            return console.log(err)
-        }
+        })
+        .catch(err => console.log(err))
     }
     
     useEffect(() => {
         retrieveSong(songId)
-    }, [songId])
+    }, [])
     
     useEffect(() => {
         const script = document.createElement('script');
@@ -48,33 +45,29 @@ export default function SongDetails(props) {
         }
       }, []);
 
-      useEffect(() => {
-          (song && setMidiPlayer({body: 
-          <>
-            <midi-player
-            src={song.songUrl}
-            sound-font visualizer="#myPianoRollVisualizer">
-            </midi-player>
-            
-            <midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
-            src={song.songUrl}>
-            </midi-visualizer>
-            
-            </>}))
-    }, [song])
+    const midiPlayer = 
+    <>
+    <midi-player
+    src="https://res.cloudinary.com/dvhmyvkm1/video/upload/v1633011238/midi-gallery/file.midi"
+    sound-font visualizer="#myPianoRollVisualizer">
+    </midi-player>
     
+    <midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
+    src="https://res.cloudinary.com/dvhmyvkm1/video/upload/v1633011238/midi-gallery/file.midi">
+    </midi-visualizer>
+    
+    </>
     
     return (
         <div>
         {song && (
             <div>
-            <p>REALITY CHECK</p>
             <h1>{song.title}</h1>
             <h3>{song.author}</h3>
             <p>{song.songUrl}</p>
-            <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
+            <a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>Download</a>
             <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>
-            {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
+            <div>{midiPlayer}</div>
             </div>)}
             </div>
             )

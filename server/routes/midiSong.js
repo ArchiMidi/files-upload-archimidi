@@ -18,7 +18,6 @@ router.get('/songs', (req, res, next) => {
 });
 
 //GET single song
-
 router.get('/songs/:id', (req, res, next) => {
   MidiSong.findById(req.params.id)
     .then(song => {
@@ -33,7 +32,6 @@ router.get('/songs/:id', (req, res, next) => {
     .catch(err => next(err))
 
 })
-
 
 // POST '/api/upload' => Route that will receive an image, send it to Cloudinary via the fileUploader and return the image URL
 router.post('/upload', fileUploader.single('songUrl'), (req, res, next) => {
