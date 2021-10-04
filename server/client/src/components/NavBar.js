@@ -20,7 +20,10 @@ export default function NavBar(props) {
                         <p>Home</p>
                     </Link>
                     <Link to="/" onClick={() => handleLogout()}>
-                        <button>logout</button>
+                        <p>Logout</p>
+                    </Link>
+                    <Link to='/songs/add'>
+                        <p>Upload Song</p>
                     </Link>
                 </>
             ) : (
