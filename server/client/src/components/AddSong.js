@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
 import service from '../api/service';
 
@@ -13,7 +13,7 @@ function AddSong(props) {
   const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
   const [createdBy, setCreatedBy] = useState(loggedInUser)
-
+  const [isUploaded, setIsUploaded] = useState(false)
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
     console.log("The file to be uploaded is: ", e.target.files[0]);
@@ -30,6 +30,7 @@ function AddSong(props) {
         // console.log("response is: ", response);
         // after the console.log we can see that response carries 'secure_url' which we can use to update the state
         setSongUrl(response.secure_url);
+        setIsUploaded(true)
       })
       .catch(err => console.log('Error while uploading the file: ', err));
   };
@@ -48,6 +49,10 @@ function AddSong(props) {
   };
 
 
+    const saveButton = <button type="submit">Save new song</button>
+    const loadIcon = <p>upload your file</p>
+
+
   return (
     <div>
       <h2>New Song</h2>
@@ -62,8 +67,7 @@ function AddSong(props) {
 
 
         <input type="file" onChange={handleFileUpload} />
-
-        <button type="submit">Save new song</button>
+        <div>{isUploaded ? saveButton : loadIcon}</div>
       </form>
     </div>
   );
