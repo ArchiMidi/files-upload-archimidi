@@ -20,12 +20,13 @@ function App(props) {
 
   return (
     <div className="App">
-      <h1>ArchMidi</h1>
+      <h1>ArchiMIDIs</h1>
       <NavBar user={user} setUser={setUser}></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add"
-          render={props => <AddSong user={user} setUser={setUser} />} />
+          render={user ?  props => <AddSong user={user} setUser={setUser} /> : props => <Login setUser={setUser}{...props} />
+            } />
         <Route exact path='/songs/:id' component={SongDetails} />
         <Route exact path="/signup"
           render={props => <Signup setUser={setUser}{...props} />} />
