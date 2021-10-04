@@ -3,8 +3,10 @@ import { useState } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
 import service from '../api/service';
 
-function AddSong() {
- 
+function AddSong(props) {
+
+  console.log(props.user)
+
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
@@ -43,25 +45,25 @@ function AddSong() {
   };
 
 
-    return (
-      <div>
-        <h2>New Song</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name
-            <input type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} />
-          </label>
+  return (
+    <div>
+      <h2>New Song</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name
+          <input type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} />
+        </label>
 
-          <label>Author</label>
-          <textarea type="text" name="author" value={author} onChange={e => setAuthor(e.target.value)} />
+        <label>Author</label>
+        <textarea type="text" name="author" value={author} onChange={e => setAuthor(e.target.value)} />
 
-          <input type="file" onChange={handleFileUpload} />
+        <input type="file" onChange={handleFileUpload} />
 
-          <button type="submit">Save new song</button>
-        </form>
-      </div>
-    );
-  }
+        <button type="submit">Save new song</button>
+      </form>
+    </div>
+  );
+}
 
 
 export default AddSong;

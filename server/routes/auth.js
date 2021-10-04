@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require("express").Router();
 const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
 
@@ -71,7 +70,7 @@ router.post('/login', (req, res, next) => {
 })
 
 
-router.get('/loggedin', (req, res) => {
+router.get('/loggedin', (req, res, next) => {
 
     console.log("User is", req.session.user)
     const user = req.session.user

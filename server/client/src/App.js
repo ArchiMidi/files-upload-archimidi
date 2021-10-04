@@ -24,7 +24,8 @@ function App(props) {
       <NavBar user={user} setUser={setUser}></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
-        <Route exact path="/songs/add" component={AddSong} />
+        <Route exact path="/songs/add"
+          render={props => <AddSong user={user} setUser={setUser} />} />
         <Route exact path='/songs/:id' component={SongDetails} />
         <Route exact path="/signup"
           render={props => <Signup setUser={setUser}{...props} />} />
