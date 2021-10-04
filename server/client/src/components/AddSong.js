@@ -7,9 +7,12 @@ function AddSong(props) {
 
   console.log(props.user)
 
+  const loggedInUser = props.user.username
+
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
+  const [createdBy, setCreatedBy] = useState(loggedInUser)
 
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
@@ -36,7 +39,7 @@ function AddSong(props) {
     e.preventDefault();
 
     service
-      .saveNewSong({ title, author, songUrl })
+      .saveNewSong({ title, author, songUrl, createdBy })
       .then(res => {
         console.log('added new song: ', res);
         // here you would redirect to some other page
@@ -56,6 +59,11 @@ function AddSong(props) {
 
         <label>Author</label>
         <textarea type="text" name="author" value={author} onChange={e => setAuthor(e.target.value)} />
+
+        <label>
+          Uploaded by
+          <input type="text" name="createdBy" value={props.user.username} />
+        </label>
 
         <input type="file" onChange={handleFileUpload} />
 
