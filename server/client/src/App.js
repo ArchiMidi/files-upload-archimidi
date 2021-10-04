@@ -27,7 +27,10 @@ function App(props) {
         <Route exact path="/songs/add"
           render={user ?  props => <AddSong user={user} setUser={setUser} /> : props => <Login setUser={setUser}{...props} />
             } />
-        <Route exact path='/songs/:id' component={SongDetails} />
+           <Route exact path="/songs/:id"
+          render={user ?  props => <SongDetails user={user}{...props} /> : props => <SongDetails user={null}{...props} />
+            } />
+        {/* <Route exact path='/songs/:id' component={SongDetails} /> */}
         <Route exact path="/signup"
           render={props => <Signup setUser={setUser}{...props} />} />
         <Route exact path="/login"

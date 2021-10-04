@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 function AddSong(props) {
   console.log(props.user)
 
-  const loggedInUser = props.user.username
+  const loggedInUser = props.user._id
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
