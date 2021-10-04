@@ -60,10 +60,6 @@ function AddSong(props) {
         <label>Author</label>
         <textarea type="text" name="author" value={author} onChange={e => setAuthor(e.target.value)} />
 
-        <label>
-          Uploaded by
-          <input type="text" name="createdBy" value={props.user.username} />
-        </label>
 
         <input type="file" onChange={handleFileUpload} />
 
