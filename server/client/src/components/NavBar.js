@@ -34,9 +34,11 @@ export default function NavBar(props) {
                     <Link to='/signup'>
                         <p>Sign up</p>
                     </Link>
+                    <p>or</p>
                     <Link to='/login'>
                         <p>Log in</p>
                     </Link>
+                    <p>to upload a song </p>
                 </>
             )}
         </nav>

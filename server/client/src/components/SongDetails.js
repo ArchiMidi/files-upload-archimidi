@@ -23,7 +23,7 @@ export default function SongDetails(props) {
         try {
             const response = await service
             .getSong(id)
-            console.log('song is:', response)
+            console.log('song retrieved:', response)
             setSong(response)
         } catch (err) {
             return console.log(err)
