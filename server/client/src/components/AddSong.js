@@ -2,9 +2,9 @@ import React from 'react';
 import { useState, useEffect } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
 import service from '../api/service';
+import { Redirect } from 'react-router';
 
 function AddSong(props) {
-
   console.log(props.user)
 
   const loggedInUser = props.user.username

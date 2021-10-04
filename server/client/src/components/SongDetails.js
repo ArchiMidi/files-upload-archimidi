@@ -67,7 +67,6 @@ export default function SongDetails(props) {
             <div>
             {song && (
                 <div>
-                <p>REALITY CHECK</p>
                 <h1>{song.title}</h1>
                 <h3>{song.author}</h3>
                 <p>{song.songUrl}</p>
