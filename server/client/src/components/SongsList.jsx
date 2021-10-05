@@ -9,10 +9,13 @@ import SongCard from "./SongCard";
 
 
 
+
 function SongsList(props) {
 
   const [allSongs, setAllSongs] = useState([]);
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
+  const [filtered, setFiltered] = useState([])
+  const [searchFields, setSearchFields] = useState({ title: true, author: true })
 
   const getAllSongs = () => {
     return service
@@ -28,12 +31,6 @@ function SongsList(props) {
 
   //filter
 
-
-
-
-
-
-
   useEffect(() => {
     getAllSongs()
   }, [])
@@ -45,10 +42,23 @@ function SongsList(props) {
   let searchArgRev = (words.length === 1) ? words : words.join('.*') + '|' + words.reverse().join(".*");
   let Regx2 = new RegExp(searchArgRev, 'i')
 
-  const filteredUsers = allSongs.filter(song =>
-    Regx1.test(song.title) || Regx2.test(song.title) ||
-    Regx1.test(song.author) || Regx2.test(song.author)
-  )
+
+
+  const filteredUsers = allSongs.filter(song => {
+
+    if (searchFields.title === true && searchFields.author === true) {
+      return (Regx1.test(song.title) || Regx2.test(song.title)) || (Regx1.test(song.author) || Regx2.test(song.author))
+
+    } else if (searchFields.title === false && searchFields.author === true) {
+      return Regx1.test(song.author) || Regx2.test(song.author)
+
+    } else if (searchFields.title === true && searchFields.author === false) {
+      return Regx1.test(song.title) || Regx2.test(song.title)
+
+    } else {
+      return allSongs
+    }
+  })
 
 
   // const songsList = allSongs.map(song => <div key={song._id}><h1>{song.title}</h1><a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>Download</a></div>)
@@ -59,6 +69,23 @@ function SongsList(props) {
       <label>Search by title or author: </label>
       <input type="text" name="search" value={search} onChange={e => setSearch(e.target.value)} />
     </div>
+    <label>
+      Search by Title
+      <input
+        name="title"
+        type="checkbox"
+        checked={searchFields.title}
+        onChange={e => setSearchFields({ ...searchFields, title: e.target.checked })} />
+    </label>
+    <br />
+    <label>
+      Search by Author
+      <input
+        name="author"
+        type="checkbox"
+        checked={searchFields.author}
+        onChange={e => setSearchFields({ ...searchFields, author: e.target.checked })} />
+    </label>
     {/* {songsList} */}
     {filteredUsers.map(song => <SongCard key={song._id} {...song} />)}
   </>
