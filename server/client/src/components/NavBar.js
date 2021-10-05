@@ -35,6 +35,7 @@ export default function NavBar(props) {
                             <p>Home</p>
                         </Link>
                     }
+                    {path === '/login' && <p>don't have an account?</p>}
                     {path !== '/signup' && <>
                         <Link to='/signup'>
                             <p>Sign up</p>
@@ -42,6 +43,7 @@ export default function NavBar(props) {
                     </>
                     }
                     {(path !== '/signup' && path !== '/login') && <p>or</p>}
+                    {path === '/signup' && <p>already  a user?</p>}
                     {path !== '/login' &&
                         <>
                             <Link to='/login'>
