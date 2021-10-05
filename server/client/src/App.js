@@ -14,6 +14,10 @@ function App(props) {
 
   const [user, setUser] = useState(props.user)
 
+  const addUser = user => {
+    setUser(user);
+  }
+
   // console.log('App.js user is :', user)
 
   console.log(user)
@@ -21,6 +25,7 @@ function App(props) {
   return (
     <div className="App">
       <h1>ArchiMIDIs</h1>
+
       <NavBar user={user} setUser={setUser} currentPage={props}></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
@@ -31,10 +36,11 @@ function App(props) {
           render={user ?  props => <SongDetails user={user}{...props} /> : props => <SongDetails user={null}{...props} />
             } />
         {/* <Route exact path='/songs/:id' component={SongDetails} /> */}
+
         <Route exact path="/signup"
-          render={props => <Signup setUser={setUser}{...props} />} />
+          render={props => <Signup setUser={addUser}{...props} />} />
         <Route exact path="/login"
-          render={props => <Login setUser={setUser}{...props} />} />
+          render={props => <Login setUser={addUser}{...props} />} />
       </Switch>
     </div>
   );
