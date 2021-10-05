@@ -47,7 +47,7 @@ function SongsList(props) {
   const filteredUsers = allSongs.filter(song => {
 
     if (searchFields.title === true && searchFields.author === true) {
-      return (Regx1.test(song.title) || Regx2.test(song.title)) || (Regx1.test(song.author) || Regx2.test(song.author))
+      return ((Regx1.test(song.title) || Regx2.test(song.title)) || (Regx1.test(song.author) || Regx2.test(song.author)))
 
     } else if (searchFields.title === false && searchFields.author === true) {
       return Regx1.test(song.author) || Regx2.test(song.author)
