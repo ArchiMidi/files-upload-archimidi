@@ -51,19 +51,7 @@ export default function SongDetails(props) {
     useEffect(() => {
         song && setMidiPlayer({body: 
             <>
-            {/* <midi-player
-            src={song.songUrl}
-            sound-font visualizer="#myPianoRollVisualizer">
-            </midi-player>
-            
-            <midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
-            src={song.songUrl}>
-            </midi-visualizer> */}
             <section id="player2">
-            <midi-player
-            src={song.songUrl}
-            sound-font visualizer="#player2 midi-visualizer">
-            </midi-player>
             <midi-visualizer
             type="piano-roll"
             src={song.songUrl}>
@@ -72,6 +60,10 @@ export default function SongDetails(props) {
             type="staff"
             src={song.songUrl}>
             </midi-visualizer>
+            <midi-player
+            src={song.songUrl}
+            visualizer="#player2 midi-visualizer">
+            </midi-player>
             </section>
             
             </>})
