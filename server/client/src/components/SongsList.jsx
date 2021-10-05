@@ -12,6 +12,7 @@ import SongCard from "./SongCard";
 function SongsList(props) {
 
   const [allSongs, setAllSongs] = useState([]);
+  const [search, setSearch] = useState('')
 
   const getAllSongs = () => {
     return service
@@ -27,12 +28,23 @@ function SongsList(props) {
     getAllSongs()
   }, [])
 
+  //filter
+
+  const filteredUsers = allSongs.filter(song =>
+    song.title.toLowerCase().includes(search.toLowerCase()) ||
+    song.author.toLowerCase().includes(search.toLowerCase())
+  )
+
   // const songsList = allSongs.map(song => <div key={song._id}><h1>{song.title}</h1><a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>Download</a></div>)
 
   return (<>
     <h1>List of Songs</h1>
+    <div className="filter">
+      <label>Search by title or author: </label>
+      <input type="text" name="search" value={search} onChange={e => setSearch(e.target.value)} />
+    </div>
     {/* {songsList} */}
-    {allSongs.map(song => <SongCard key={song._id} {...song} />)}
+    {filteredUsers.map(song => <SongCard key={song._id} {...song} />)}
   </>
   );
 }
