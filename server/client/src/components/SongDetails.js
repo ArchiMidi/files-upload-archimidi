@@ -11,15 +11,18 @@ export default function SongDetails(props) {
     
     let currentUserId = (props.user ? props.user._id : '');
     const songId = props.match.params.id
-    const deleteSong = async (id) => {
+    const deleteSong = (id) => {
         try {
-            const response = await service
+            //// i made it work but i'm not sure I get it. response is not the right word.////
+            const response = service
             .deleteSong(id)
-            console.log('song deleted:', response)
-            history.push('/')
+            .then
+                console.log('song deleted:', response)
+                history.push('/')
         } catch (err) {
             return console.log(err)
         }
+        
     }
     
     const retrieveSong = async (id) => {
