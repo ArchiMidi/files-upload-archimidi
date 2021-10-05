@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router'
 
 export default function SongDetails(props) {
-    
+    let history = useHistory()
     const [song, setSong] = useState(null)
     const [midiPlayer, setMidiPlayer] = useState({ body: null })
     
@@ -16,7 +16,7 @@ export default function SongDetails(props) {
             const response = await service
             .deleteSong(id)
             console.log('song deleted:', response)
-
+            history.push('/')
         } catch (err) {
             return console.log(err)
         }
@@ -59,10 +59,10 @@ export default function SongDetails(props) {
             type="piano-roll"
             src={song.songUrl}>
             </midi-visualizer>
-            <midi-visualizer
+            {/* <midi-visualizer
             type="staff"
             src={song.songUrl}>
-            </midi-visualizer>
+            </midi-visualizer> */}
             <midi-player
             src={song.songUrl}
             visualizer="#player2 midi-visualizer">
