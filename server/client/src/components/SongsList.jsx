@@ -47,7 +47,7 @@ function SongsList(props) {
 
   const filteredUsers = allSongs.filter(song =>
     Regx1.test(song.title) || Regx2.test(song.title) ||
-    song.author.toLowerCase().includes(search.toLowerCase())
+    Regx1.test(song.author) || Regx2.test(song.author)
   )
 
 
