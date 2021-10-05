@@ -13,11 +13,11 @@ function AddSong(props) {
   const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
   const [createdBy, setCreatedBy] = useState(loggedInUser)
-  const [tag, setTag ] = useState('')
+  const [tag, setTag] = useState('')
   const [tags, setTags] = useState([])
   const [tagToRemove, setTagToRemove] = useState(null)
   const [uploadStage, setUploadStage] = useState(0)
-
+  const [message, setMessage] = useState(null)
 
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
@@ -55,32 +55,41 @@ function AddSong(props) {
   };
 
 
-    const saveButton = <button type="submit">Save new song</button>
-    const loadIcon = <p>Loading</p>
-    const waitingIcon = <p>upload your file</p>
+  const saveButton = <button type="submit">Save new song</button>
+  const loadIcon = <p>Loading</p>
+  const waitingIcon = <p>upload your file</p>
 
-    
-    const HandleTagSubmit = e => {
-      e.preventDefault();
-      setTags(tags => {
-       var set = [tag, ...tags].map(el => el.toLowerCase()).filter((t, i, arr) => (arr.indexOf(t) === i))
-       return set
-      }
-       )
-      setTag('')
+
+  const HandleTagSubmit = e => {
+    e.preventDefault();
+    setMessage(null)
+    setTags(tags => {
+      var set = [tag, ...tags].map(el => {
+        return el.toLowerCase()
+      }).filter((t, i, arr) => {
+        if (arr.indexOf(t) === i) return true
+        else {
+          setMessage(`${t} is already a tag`)
+          return false
+        }
+      })
+      return set
     }
-    
+    )
+    setTag('')
+  }
+
   useEffect(() => {
-    (tagToRemove !== null && 
+    (tagToRemove !== null &&
       setTags([...tags].filter(tagChecked => tagChecked !== tagToRemove))
-      )
+    )
     return () => {
       setTagToRemove(null)
     }
   }, [tags, tagToRemove])
 
   return (
-    <div>   
+    <div>
       <h2>New Song</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -102,18 +111,19 @@ function AddSong(props) {
         </label>
         <button type="submit">Add Tag</button>
       </form>
-      
-      {tags.map(tag => 
-      <>
-          <p>{tag}</p> 
-        <form onSubmit={
-          e => e.preventDefault(),
-          tag => setTagToRemove(tag)
+
+      {message && <p>{message}</p>}
+      {tags.map(tag =>
+        <>
+          <p>{tag}</p>
+          <form onSubmit={
+            e => e.preventDefault(),
+            tag => setTagToRemove(tag)
           }>
-        <button type="submit">x</button>
-        </form>
+            <button type="submit">x</button>
+          </form>
         </>
-        )}
+      )}
     </div>
   );
 }
