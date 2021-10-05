@@ -13,7 +13,10 @@ function AddSong(props) {
   const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
   const [createdBy, setCreatedBy] = useState(loggedInUser)
+  const [tag, setTag ] = useState('')
+  const [tags, setTags] = useState([])
   const [uploadStage, setUploadStage] = useState(0)
+
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
     console.log("The file to be uploaded is: ", e.target.files[0]);
@@ -54,7 +57,14 @@ function AddSong(props) {
     const loadIcon = <p>Loading</p>
     const waitingIcon = <p>upload your file</p>
 
-
+    
+    const HandleTagSubmit = e => {
+      let newTags = [...tags].push(tag)
+      e.preventDefault();
+      setTags(newTags)
+      setTag('')
+    }
+    
   return (
     <div>
       <h2>New Song</h2>
@@ -70,6 +80,15 @@ function AddSong(props) {
         <input type="file" onChange={handleFileUpload} />
         <div>{uploadStage > 1 ? saveButton : uploadStage > 0 ? loadIcon : waitingIcon}</div>
       </form>
+
+      <form onSubmit={HandleTagSubmit}>
+        <label>
+          Tags
+          <input type="text" name="tag" value={tag} onChange={e => setTag(e.target.value)} />
+        </label>
+        <button type="submit">Add Tag</button>
+      </form>
+      {/* {tags.map(oneTag => <p>{oneTag}</p>)} */}
     </div>
   );
 }
