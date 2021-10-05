@@ -38,11 +38,12 @@ function SongsList(props) {
     getAllSongs()
   }, [])
 
+
   let words = search.split(' ')
   let searchArg = (words.length === 1) ? words : words.join('.*')
   let Regx1 = new RegExp(searchArg, 'i')
   let searchArgRev = (words.length === 1) ? words : words.join('.*') + '|' + words.reverse().join(".*");
-  let Regx2 = new RegExp(searchArgRev)
+  let Regx2 = new RegExp(searchArgRev, 'i')
 
   const filteredUsers = allSongs.filter(song =>
     Regx1.test(song.title) || Regx2.test(song.title) ||
