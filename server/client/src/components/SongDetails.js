@@ -2,11 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import service from '../api/service'
 import { useEffect } from 'react'
+import { useHistory } from 'react-router'
 
 export default function SongDetails(props) {
     
     const [song, setSong] = useState(null)
-    const [midiPlayer, setMidiPlayer] = useState({body: null})
+    const [midiPlayer, setMidiPlayer] = useState({ body: null })
     
     let currentUserId = (props.user ? props.user._id : '');
     const songId = props.match.params.id
@@ -15,6 +16,7 @@ export default function SongDetails(props) {
             const response = await service
             .deleteSong(id)
             console.log('song deleted:', response)
+
         } catch (err) {
             return console.log(err)
         }
@@ -49,7 +51,8 @@ export default function SongDetails(props) {
     }, []);
     
     useEffect(() => {
-        song && setMidiPlayer({body: 
+        song && setMidiPlayer({
+            body:
             <>
             <section id="player2">
             <midi-visualizer
@@ -66,22 +69,23 @@ export default function SongDetails(props) {
             </midi-player>
             </section>
             
-            </>})
-        }, [song])
-        
-        
-        return (
+            </>
+        })
+    }, [song])
+    
+    
+    return (
+        <div>
+        {song && (
             <div>
-            {song && (
-                <div>
-                <h1>{song.title}</h1>
-                <h3>{song.author}</h3>
-                <p>{song.songUrl}</p>
-                <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
-                {(currentUserId === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
-                {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
-                </div>)}
-                </div>
-                )
-            }
-            
+            <h1>{song.title}</h1>
+            <h3>{song.author}</h3>
+            <p>{song.songUrl}</p>
+            <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
+            {(currentUserId === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
+            {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
+            </div>)}
+            </div>
+            )
+        }
+        
