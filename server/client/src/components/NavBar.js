@@ -3,6 +3,7 @@ import service from '../api/service'
 
 export default function NavBar(props) {
     // console.log('logged in user is >>>>>>>>>>>>>>>>>>>>>>>>>>>', props.user)
+    const path = useLocation().pathname
 
     const handleLogout = () => {
         service.logout()
@@ -11,15 +12,15 @@ export default function NavBar(props) {
             })
     }
 
-    const path = useLocation().pathname
-
     return (
         <nav>
             {props.user ? (
                 <>
-                    <Link to='/'>
-                        <p>Home</p>
-                    </Link>
+                    {path !== '/' &&
+                        <Link to='/'>
+                            <p>Home</p>
+                        </Link>
+                    }
                     <Link to="/" onClick={() => handleLogout()}>
                         <p>Logout</p>
                     </Link>
@@ -29,9 +30,11 @@ export default function NavBar(props) {
                 </>
             ) : (
                 <>
-                    <Link to='/'>
-                        <p>Home</p>
-                    </Link>
+                    {path !== '/' &&
+                        <Link to='/'>
+                            <p>Home</p>
+                        </Link>
+                    }
                     {path !== '/signup' && <>
                         <Link to='/signup'>
                             <p>Sign up</p>
@@ -39,12 +42,12 @@ export default function NavBar(props) {
                     </>
                     }
                     {(path !== '/signup' && path !== '/login') && <p>or</p>}
-                    {path !== '/login' && 
-                    <>
-                        <Link to='/login'>
-                            <p>Log in</p>
-                        </Link>
-                    </>
+                    {path !== '/login' &&
+                        <>
+                            <Link to='/login'>
+                                <p>Log in</p>
+                            </Link>
+                        </>
                     }
                     {(path !== '/signup' && path !== '/login') && <p>to upload a song </p>}
                 </>
