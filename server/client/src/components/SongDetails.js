@@ -6,6 +6,7 @@ import { useHistory } from 'react-router'
 
 export default function SongDetails(props) {
     let history = useHistory()
+    console.log(history)
     const [song, setSong] = useState(null)
     const [midiPlayer, setMidiPlayer] = useState({ body: null })
     
