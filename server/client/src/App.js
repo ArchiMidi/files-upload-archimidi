@@ -15,14 +15,14 @@ function App(props) {
   const [user, setUser] = useState(props.user)
 
   const addUser = user => {
-    setUser(user)
+    setUser(user);
   }
 
 
 
   console.log('App.js user is :', user)
 
-  console.log(user)
+
 
   return (
     <div className="App">
