@@ -104,13 +104,14 @@ function AddSong(props) {
         <div>{uploadStage > 1 ? saveButton : uploadStage > 0 ? loadIcon : waitingIcon}</div>
       </form>
 
+      {tags.length < 5 ?
       <form onSubmit={HandleTagSubmit}>
         <label>
           Tags
           <input type="text" name="tag" value={tag} onChange={e => setTag(e.target.value)} />
         </label>
         <button type="submit">Add Tag</button>
-      </form>
+      </form> : <p>max tags number reached</p>}
 
       {message && <p>{message}</p>}
       {tags.map(tag =>
