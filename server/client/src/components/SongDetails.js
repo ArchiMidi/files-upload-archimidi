@@ -71,7 +71,7 @@ export default function SongDetails(props) {
                 <h3>{song.author}</h3>
                 <p>{song.songUrl}</p>
                 <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
-                <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>
+                {(props.user._id === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
                 {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
                 </div>)}
                 </div>

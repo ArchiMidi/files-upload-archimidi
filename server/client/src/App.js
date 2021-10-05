@@ -25,13 +25,18 @@ function App(props) {
   return (
     <div className="App">
       <h1>ArchiMIDIs</h1>
-      <NavBar user={user} setUser={addUser}></NavBar>
+
+      <NavBar user={user} setUser={setUser} currentPage={props}></NavBar>
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add"
-          render={user ? props => <AddSong user={user} setUser={addUser} /> : props => <Login setUser={addUser}{...props} />
-          } />
-        <Route exact path='/songs/:id' component={SongDetails} />
+          render={user ?  props => <AddSong user={user} setUser={setUser} /> : props => <Login setUser={setUser}{...props} />
+            } />
+           <Route exact path="/songs/:id"
+          render={user ?  props => <SongDetails user={user}{...props} /> : props => <SongDetails user={null}{...props} />
+            } />
+        {/* <Route exact path='/songs/:id' component={SongDetails} /> */}
+
         <Route exact path="/signup"
           render={props => <Signup setUser={addUser}{...props} />} />
         <Route exact path="/login"

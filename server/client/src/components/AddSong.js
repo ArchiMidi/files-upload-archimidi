@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 function AddSong(props) {
   console.log(props.user)
 
-  const loggedInUser = props.user.username
+  const loggedInUser = props.user._id
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -43,7 +43,8 @@ function AddSong(props) {
       .saveNewSong({ title, author, songUrl, createdBy })
       .then(res => {
         console.log('added new song: ', res);
-        // here you would redirect to some other page
+        <Redirect to="/" />
+        // here you would redirect to some other pagess
       })
       .catch(err => console.log('Error while adding the new song: ', err));
   };
