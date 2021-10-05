@@ -15,7 +15,9 @@ function AddSong(props) {
   const [createdBy, setCreatedBy] = useState(loggedInUser)
   const [tag, setTag ] = useState('')
   const [tags, setTags] = useState([])
+  const [tagToRemove, setTagToRemove] = useState(null)
   const [uploadStage, setUploadStage] = useState(0)
+
 
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
@@ -60,10 +62,23 @@ function AddSong(props) {
     
     const HandleTagSubmit = e => {
       e.preventDefault();
-      setTags(tags => [tag, ...tags])
+      setTags(tags => {
+       var set = [tag, ...tags].map(el => el.toLowerCase()).filter((t, i, arr) => (arr.indexOf(t) === i))
+       return set
+      }
+       )
       setTag('')
     }
     
+  useEffect(() => {
+    (tagToRemove !== null && 
+      setTags([...tags].filter(tagChecked => tagChecked !== tagToRemove))
+      )
+    return () => {
+      setTagToRemove(null)
+    }
+  }, [tags, tagToRemove])
+
   return (
     <div>   
       <h2>New Song</h2>
@@ -87,7 +102,18 @@ function AddSong(props) {
         </label>
         <button type="submit">Add Tag</button>
       </form>
-      {tags.map(tag => <p>{tag}</p>)}
+      
+      {tags.map(tag => 
+      <>
+          <p>{tag}</p> 
+        <form onSubmit={
+          e => e.preventDefault(),
+          tag => setTagToRemove(tag)
+          }>
+        <button type="submit">x</button>
+        </form>
+        </>
+        )}
     </div>
   );
 }
