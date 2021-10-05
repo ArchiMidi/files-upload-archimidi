@@ -8,6 +8,7 @@ export default function SongDetails(props) {
     const [song, setSong] = useState(null)
     const [midiPlayer, setMidiPlayer] = useState({body: null})
     
+    let currentUserId = (props.user ? props.user._id : '');
     const songId = props.match.params.id
     const deleteSong = async (id) => {
         try {
@@ -50,14 +51,28 @@ export default function SongDetails(props) {
     useEffect(() => {
         song && setMidiPlayer({body: 
             <>
-            <midi-player
+            {/* <midi-player
             src={song.songUrl}
             sound-font visualizer="#myPianoRollVisualizer">
             </midi-player>
             
             <midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
             src={song.songUrl}>
+            </midi-visualizer> */}
+            <section id="player2">
+            <midi-player
+            src={song.songUrl}
+            sound-font visualizer="#player2 midi-visualizer">
+            </midi-player>
+            <midi-visualizer
+            type="piano-roll"
+            src={song.songUrl}>
             </midi-visualizer>
+            <midi-visualizer
+            type="staff"
+            src={song.songUrl}>
+            </midi-visualizer>
+            </section>
             
             </>})
         }, [song])
@@ -71,7 +86,7 @@ export default function SongDetails(props) {
                 <h3>{song.author}</h3>
                 <p>{song.songUrl}</p>
                 <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
-                {(props.user._id === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
+                {(currentUserId === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
                 {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
                 </div>)}
                 </div>
