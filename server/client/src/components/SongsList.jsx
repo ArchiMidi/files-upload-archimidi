@@ -24,16 +24,31 @@ function SongsList(props) {
       .catch(err => console.log('Error while uploading the file: ', err));
   }
 
+
+
+  //filter
+
+
+
+
+
+
+
   useEffect(() => {
     getAllSongs()
   }, [])
 
-  //filter
+  let words = search.split(' ')
+  let searchArg = (words.length === 1) ? words : words.join('.*')
+  let Regx1 = new RegExp(searchArg, 'i')
+  let searchArgRev = (words.length === 1) ? words : words.join('.*') + '|' + words.reverse().join(".*");
+  let Regx2 = new RegExp(searchArgRev)
 
   const filteredUsers = allSongs.filter(song =>
-    song.title.toLowerCase().includes(search.toLowerCase()) ||
+    Regx1.test(song.title) || Regx2.test(song.title) ||
     song.author.toLowerCase().includes(search.toLowerCase())
   )
+
 
   // const songsList = allSongs.map(song => <div key={song._id}><h1>{song.title}</h1><a href={song.songUrl} download={`${song.title}_${song.author}.midi`}>Download</a></div>)
 
