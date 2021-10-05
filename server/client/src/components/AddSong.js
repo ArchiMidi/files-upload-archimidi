@@ -59,14 +59,13 @@ function AddSong(props) {
 
     
     const HandleTagSubmit = e => {
-      let newTags = [...tags].push(tag)
       e.preventDefault();
-      setTags(newTags)
+      setTags(tags => [tag, ...tags])
       setTag('')
     }
     
   return (
-    <div>
+    <div>   
       <h2>New Song</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -88,7 +87,7 @@ function AddSong(props) {
         </label>
         <button type="submit">Add Tag</button>
       </form>
-      {/* {tags.map(oneTag => <p>{oneTag}</p>)} */}
+      {tags.map(tag => <p>{tag}</p>)}
     </div>
   );
 }
