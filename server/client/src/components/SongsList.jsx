@@ -31,12 +31,6 @@ function SongsList(props) {
 
   //filter
 
-
-
-
-
-
-
   useEffect(() => {
     getAllSongs()
   }, [])
@@ -53,15 +47,16 @@ function SongsList(props) {
   const filteredUsers = allSongs.filter(song => {
 
     if (searchFields.title === true && searchFields.author === true) {
-      return Regx1.test(song.title) || Regx2.test(song.title) || Regx1.test(song.author) || Regx2.test(song.author)
+      return (Regx1.test(song.title) || Regx2.test(song.title)) || (Regx1.test(song.author) || Regx2.test(song.author))
 
     } else if (searchFields.title === false && searchFields.author === true) {
       return Regx1.test(song.author) || Regx2.test(song.author)
 
     } else if (searchFields.title === true && searchFields.author === false) {
       return Regx1.test(song.title) || Regx2.test(song.title)
+
     } else {
-      return Regx1.test(song.title) || Regx2.test(song.title) || Regx1.test(song.author) || Regx2.test(song.author)
+      return allSongs
     }
   })
 
@@ -82,6 +77,7 @@ function SongsList(props) {
         checked={searchFields.title}
         onChange={e => setSearchFields({ ...searchFields, title: e.target.checked })} />
     </label>
+    <br />
     <label>
       Search by Author
       <input
