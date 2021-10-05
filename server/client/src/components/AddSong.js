@@ -13,11 +13,11 @@ function AddSong(props) {
   const [author, setAuthor] = useState('');
   const [songUrl, setSongUrl] = useState('');
   const [createdBy, setCreatedBy] = useState(loggedInUser)
-  const [isUploaded, setIsUploaded] = useState(false)
+  const [uploadStage, setUploadStage] = useState(0)
   // ******** this method handles just the file upload ********
   const handleFileUpload = e => {
     console.log("The file to be uploaded is: ", e.target.files[0]);
-
+    setUploadStage(1)
     const uploadData = new FormData();
 
     // imageUrl => this name has to be the same as in the model since we pass
@@ -30,7 +30,7 @@ function AddSong(props) {
         // console.log("response is: ", response);
         // after the console.log we can see that response carries 'secure_url' which we can use to update the state
         setSongUrl(response.secure_url);
-        setIsUploaded(true)
+        setUploadStage(2)
       })
       .catch(err => console.log('Error while uploading the file: ', err));
   };
@@ -51,7 +51,8 @@ function AddSong(props) {
 
 
     const saveButton = <button type="submit">Save new song</button>
-    const loadIcon = <p>upload your file</p>
+    const loadIcon = <p>Loading</p>
+    const waitingIcon = <p>upload your file</p>
 
 
   return (
@@ -67,7 +68,7 @@ function AddSong(props) {
         <textarea type="text" name="author" value={author} onChange={e => setAuthor(e.target.value)} />
 
         <input type="file" onChange={handleFileUpload} />
-        <div>{isUploaded ? saveButton : loadIcon}</div>
+        <div>{uploadStage > 1 ? saveButton : uploadStage > 0 ? loadIcon : waitingIcon}</div>
       </form>
     </div>
   );
