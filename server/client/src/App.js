@@ -8,16 +8,17 @@ import SongDetails from "./components/SongDetails";
 import Signup from "./components/Signup";
 import { useState } from 'react'
 import Login from "./components/Login";
-
+import { useHistory } from "react-router";
 
 function App(props) {
 
   const [user, setUser] = useState(props.user)
-
+  const history = useHistory()
   const addUser = user => {
     setUser(user);
   }
 
+  const redirectToLogin = () => history.push(`/login`)
   // console.log('App.js user is :', user)
 
   console.log(user)
@@ -30,12 +31,11 @@ function App(props) {
       <Switch>
         <Route exact path={PATHS.HOMEPAGE} component={SongsList} />
         <Route exact path="/songs/add"
-          render={user ?  props => <AddSong user={user} setUser={setUser} /> : props => <Login setUser={setUser}{...props} />
+          render={user ?  props => <AddSong user={user} setUser={setUser} /> : redirectToLogin()
             } />
            <Route exact path="/songs/:id"
           render={user ?  props => <SongDetails user={user}{...props} /> : props => <SongDetails user={null}{...props} />
             } />
-        {/* <Route exact path='/songs/:id' component={SongDetails} /> */}
 
         <Route exact path="/signup"
           render={props => <Signup setUser={addUser}{...props} />} />

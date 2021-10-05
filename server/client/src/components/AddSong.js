@@ -2,10 +2,10 @@ import React from 'react';
 import { useState, useEffect } from "react";
 // import the service file since we need it to send (and get) the data to(from) the server
 import service from '../api/service';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
 
 function AddSong(props) {
-  console.log(props.user)
+  let history = useHistory()
 
   const loggedInUser = props.user._id
 
@@ -43,7 +43,7 @@ function AddSong(props) {
       .saveNewSong({ title, author, songUrl, createdBy })
       .then(res => {
         console.log('added new song: ', res);
-        <Redirect to="/" />
+        history.push(`/songs/${res._id}`)
         // here you would redirect to some other pagess
       })
       .catch(err => console.log('Error while adding the new song: ', err));

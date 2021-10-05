@@ -2,21 +2,27 @@ import React from 'react'
 import { useState } from 'react'
 import service from '../api/service'
 import { useEffect } from 'react'
+import { useHistory } from 'react-router'
 
 export default function SongDetails(props) {
-    
+    let history = useHistory()
     const [song, setSong] = useState(null)
-    const [midiPlayer, setMidiPlayer] = useState({body: null})
+    const [midiPlayer, setMidiPlayer] = useState({ body: null })
     
+    let currentUserId = (props.user ? props.user._id : '');
     const songId = props.match.params.id
-    const deleteSong = async (id) => {
+    const deleteSong = (id) => {
         try {
-            const response = await service
+            //// i made it work but i'm not sure I get it. response is not the right word.////
+            const response = service
             .deleteSong(id)
-            console.log('song deleted:', response)
+            .then
+                console.log('song deleted:', response)
+                history.push('/')
         } catch (err) {
             return console.log(err)
         }
+        
     }
     
     const retrieveSong = async (id) => {
@@ -48,33 +54,41 @@ export default function SongDetails(props) {
     }, []);
     
     useEffect(() => {
-        song && setMidiPlayer({body: 
+        song && setMidiPlayer({
+            body:
             <>
-            <midi-player
-            src={song.songUrl}
-            sound-font visualizer="#myPianoRollVisualizer">
-            </midi-player>
-            
-            <midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
+            <section id="player2">
+            <midi-visualizer
+            type="piano-roll"
             src={song.songUrl}>
             </midi-visualizer>
+            {/* <midi-visualizer
+            type="staff"
+            src={song.songUrl}>
+            </midi-visualizer> */}
+            <midi-player
+            src={song.songUrl}
+            visualizer="#player2 midi-visualizer">
+            </midi-player>
+            </section>
             
-            </>})
-        }, [song])
-        
-        
-        return (
+            </>
+        })
+    }, [song])
+    
+    
+    return (
+        <div>
+        {song && (
             <div>
-            {song && (
-                <div>
-                <h1>{song.title}</h1>
-                <h3>{song.author}</h3>
-                <p>{song.songUrl}</p>
-                <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
-                {(props.user._id === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
-                {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
-                </div>)}
-                </div>
-                )
-            }
-            
+            <h1>{song.title}</h1>
+            <h3>{song.author}</h3>
+            <p>{song.songUrl}</p>
+            <a href={song.songUrl} download={`${song.title}_${song.author}.mid`}>Download</a>
+            {(currentUserId === song.createdBy) && <button onClick={() => deleteSong(song._id)}>Delete {song.title}</button>}
+            {(midiPlayer.body !== null) ? <div>{midiPlayer.body}</div> : <p>nothing to play</p>}
+            </div>)}
+            </div>
+            )
+        }
+        
