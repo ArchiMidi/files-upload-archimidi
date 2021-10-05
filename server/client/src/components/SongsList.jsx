@@ -14,7 +14,6 @@ function SongsList(props) {
 
   const [allSongs, setAllSongs] = useState([]);
   const [search, setSearch] = useState('');
-  const [filtered, setFiltered] = useState([])
   const [searchFields, setSearchFields] = useState({ title: true, author: true })
 
   const getAllSongs = () => {
