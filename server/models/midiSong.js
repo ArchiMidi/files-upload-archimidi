@@ -7,7 +7,8 @@ const MidiSong = new Schema(
     author: String,
     songUrl: String,
     createdBy: String,
-    genre: String
+    genre: String,
+    tags: Array
   },
   {
     timestamps: true
