@@ -5,7 +5,7 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from 'axios'
 
-axios.get('http://localhost:5005/api/auth/loggedin')
+axios.get('/api/auth/loggedin')
   .then(response => {
     console.log('logged in user: ', response.data);
     const user = response.data;
