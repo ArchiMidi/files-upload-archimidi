@@ -45,7 +45,7 @@ function AddSong(props) {
     e.preventDefault();
 
     service
-      .saveNewSong({ title, author, songUrl, createdBy })
+      .saveNewSong({ title, author, songUrl, createdBy, tags })
       .then(res => {
         console.log('added new song: ', res);
         history.push(`/songs/${res._id}`)
@@ -80,6 +80,7 @@ function AddSong(props) {
   }
 
   useEffect(() => {
+    
     (tagToRemove !== null &&
       setTags([...tags].filter(tagChecked => tagChecked !== tagToRemove))
     )
@@ -118,7 +119,7 @@ function AddSong(props) {
         <>
           <p>{tag}</p>
           <form onSubmit={
-            e => e.preventDefault(),
+            
             tag => setTagToRemove(tag)
           }>
             <button type="submit">x</button>
